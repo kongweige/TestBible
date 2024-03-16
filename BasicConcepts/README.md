@@ -144,6 +144,7 @@
 * 隐形需求
 ### 示例
 ![image-TestCase-1](./images/image-TestCase-1.png)
-[测试用例](./LoginTestCase/LoginTestCase.md)
+
+[测试用例](./LoginTest/README.md)
 
 

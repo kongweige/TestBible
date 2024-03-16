@@ -143,6 +143,7 @@
 * 功能之间交互验证
 * 隐形需求
 ### 示例
-[测试用例](./TestCase/TestCase.md)
+![image-TestCase-1](./images/image-TestCase-1.png)
+[测试用例](./LoginTestCase/LoginTestCase.md)
 
 

@@ -240,3 +240,65 @@
   * 在使用应用的过程中，点击某一个事件进入的页面现白屏的闪动等
 ##### adb使用
 [adb常用命令](./APP/adb.md)
+
+## 接口测试
+检查数据的交换、传递和控制管理过程
+![alt text](./images/image-network-mode.png)
+##### HTTP协议
+* 请求
+  * 请求行：method url protocol
+  * 请求方法：GET、POST、PUT、DELETE、HEAD
+  * 请求头: Host Cookie User-Agent
+  * 请求参数 query
+  * 请求体：JSON XML FORM
+* 响应:
+  * 响应状态行
+  * 响应头
+  * 响应体
+
+**请求方法**
+* GET: 获取资源
+* POST: 新增或者更新
+* PUT: 更新资源
+* DELETE: 删除资源
+
+**get和post的区别？**
+* get方式的请求，浏览器会把http header 和 data一起发送出去，服务器响应200 ok
+  
+* 对于post，浏览器会先发送http header 服务器响应100 continue 之后在发送data服务器响应ok
+
+**区别：**
+* get参数通过url传递，post放在request body中
+* get请求在url中传递的参数时有长度限制的，而post没有
+* get比post更不安全，因为参数直接暴露在url中，所以不能用来传递敏感信息
+* get请求只能进行url编码，而post支持多种编码方式
+* get请求参数会被完整保留在浏览历史记录里，而post中的参数不会被保留
+
+**http状态码**
+* 1xx：表示通知信息，如请求收到了或正在进行处理
+  * 100 Continue：继续，客户端应继续其请求
+* 2xx:表示成功，如接收或知道了
+  * 200 OK: 请求成功
+* 3xx：表示重定向，如要完成请求还必须采取进一步的行动
+  * 301 永久移动
+  * 302 临时移动
+* 4xx：表示客户的差错，如请求中有错误的语法或不能完成
+  * 403 未授权（没权限）
+  * 404 Not Found: 服务器无法根据客户端的请求找到资源（网页）
+* 5xx：表示服务器的差错，如服务器失效无法完成请求
+  * 500 服务器内部错误
+  * 503 服务器不可用
+##### 接口测试用例设计
+
+![image-post-test](./images/image-post-test.png)
+
+* 接口测试用例要素
+  * 用例名称
+  * 接口地址
+  * 请求方式
+  * 前置条件
+  * 请求头部
+  * 请求参数
+  * 响应状态码
+  * 预期响应结果
+##### postman

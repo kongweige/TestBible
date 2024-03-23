@@ -302,3 +302,10 @@
   * 响应状态码
   * 预期响应结果
 ##### postman
+
+[postman操作](./POST/Post.md)
+
+## Linux
+[linux使用](./Linux/linux.md)
+
+## SQL

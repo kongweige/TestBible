@@ -253,7 +253,6 @@ SELECT emp_no , salary + 1000 FROM salaries;
 | BETWEEN...AND... | 范围限定 |
 | IN | 子集限定 |
 | LIKE | '%or%'	模糊查询 |
-| IN | 子集限定 |
 | IS NULL | 为空 |
 | % | 匹配任意多个字符 |
 | - | 匹配一个字符 |
@@ -554,5 +553,3 @@ DELETE FROM dept WHERE id=2
 select id,socre from S group by socre>80;
 
 ```
-
-### 多表查询

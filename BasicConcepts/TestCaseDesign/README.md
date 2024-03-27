@@ -77,8 +77,6 @@
 ### 示例
 ![image-TestCase-1](../images/image-TestCase-1.png)
 
-[测试用例](../LoginTest/README.md)
-
 ## 因果图法
 因 —— 输入条件
 

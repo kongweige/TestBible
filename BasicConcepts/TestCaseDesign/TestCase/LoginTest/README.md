@@ -1,6 +1,6 @@
 # 登录功能
 ## 需求分析
-![alt text](../images/image-TestCase.png)
+![alt text](../../../images/image-TestCase.png)
 * 账号是手机号
 * 手机号仅限制为国内手机号
 * 密码必须为 数字+英文 的形式，字段为8-12个字符
@@ -9,4 +9,4 @@
 * 请求成功，跳转到首页
 * 点击忘记密码跳转到找回密码界面
 ## 测试用例编写
-![image-test](../images/image-test.png)
+![image-test](../../../images/image-test.png)

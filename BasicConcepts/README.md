@@ -303,13 +303,13 @@
   * 预期响应结果
 ##### postman
 
-[postman操作](./POST/Post.md)
+[postman操作](./Post/Post.md)
 
 ## Linux
 [linux使用](./Linux/linux.md)
 
 ## SQL
-[sql语法](./sql/sql.md)
+[sql语法](./Sql/sql.md)
 
 SELECT语句的基本用法：
 * 查询所有列的语法：SELECT * FROM 表名;

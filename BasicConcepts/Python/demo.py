@@ -203,3 +203,191 @@
 
 ##############################################################
 
+
+# t1 = (1,3,2)
+# print(t1)
+# print(type(t1))
+
+# l = [1,2,3,4,5]
+# print(l)
+# print(l[0])
+
+# # 获取列表元素个数
+# length = len(l)
+# print(length)
+
+# 统计查找操作
+# count(value) 在列表中统计参数 value 出现的次数
+
+# l = [1,2,3,4,5,1,2,3,3]
+# print(l.count(3))
+# index(value, start, stop) 在列表中查找参数 value 第一次出现的下标位置，如果给定范围则只在范围内查找，如果查找目标不存在则抛出错误。
+
+# l = [1,2,3,4,5,1,2,3,3]
+# print(l.index(3))
+# print(l.index(3,5,10))
+
+# l.append(10)
+
+
+# # keys() 用来获取字典中所有的 key, 保存到一个列表中，并以 dict_keys类型返回
+# stu = {'name': 'Tom', 'age': 23, 'gender': 'male', 'address': 'BeiJing'}
+# ks = stu.keys()
+# print(ks)
+
+# # values() 用来获取字典中所有的value, 保存到一个列表中，并以 dict_values 类型返回
+# stu = {'name': 'Tom', 'age': 23, 'gender': 'male', 'address': 'BeiJing'}
+# ks = stu.values()
+# print(ks)
+
+# # items() 用来获取字典中所有的键值对，每一个元素键值对都以一个元组保存，将所有元素元组保存到一个列表中，并以 dict_items 类型返回
+# stu = {'name': 'Tom', 'age': 23, 'gender': 'male', 'address': 'BeiJing'}
+# ks = stu.items()
+# print(ks)
+
+
+# # get(key, default) 用来获取key对应的值，如果指定的key不存在，则返回默认值
+# stu = {'name': 'Tom', 'age': 23, 'gender': 'male', 'address': 'BeiJing'}
+# # print(stu["name"])
+# # print(stu["hobby"])
+# print(stu.get("name"))
+# print(stu.get("hobby"))
+# print(stu.get("hobby","无数据"))
+
+# stu = {'name': 'Tom', 'aa': 'Tom', 'gender': 'male', 'address': 'BeiJing'}
+# print(stu.get("aa"))
+
+# s = {1, 2, 3}
+# s.add(4)
+# s.remove(4)
+
+# # 是否为子集
+# print(s.issubset({1, 2, 3}))
+# print(s.issubset({1, 2, 3, 4}))
+# print(s.issubset({3, 4, 5}))
+
+# # 判断是否为真子集
+# print(s < {1, 2, 3})
+# print(s < {1, 2, 3, 4})
+# print(s < {3, 4, 5})
+
+# 并集
+# s1 = {1, 2, 3, 4}
+# s2 = {3, 4, 5, 6}
+# s3 = {5, 6, 7, 8}
+# print(s1.union(s2))
+# print(s1.union(s2,s3))
+# # 也可以使用 | 进行集合并集运算
+# print(s1 | s2)
+# print(s1 | s2 | s3)
+
+# 交集
+# s1 = {1, 2, 3, 4}
+# s2 = {3, 4, 5, 6}
+# s3 = {5, 6, 7, 8}
+# print(s1.intersection(s2))
+# print(s1.intersection(s2, s3))
+# print(s1.intersection(s3))
+# print("*" * 10)
+# # 也可以使用 & 进行集合交集运算
+# print(s1 & s2)
+# print(s1 & s2 & s3)
+# print(s1 & s3)
+
+# 差集
+# s1 = {1, 2, 3, 4}
+# s2 = {3, 4, 5, 6}
+# s3 = {5, 6, 7, 8}
+# print(s1.difference(s2))
+# print(s1.difference(s2, s3))
+# print(s1.difference(s3))
+# print("*" * 10)
+# # 也可以使用 - 进行集合差集运算
+# print(s1 - s2)
+# print(s1 - s2 - s3)
+# print(s1 - s3)
+
+# requestMethods = {
+#                     "get": "用于获取服务器上的资源，通过在URL中传递参数来发送请求。",
+#                     "post": "用于向服务器提交数据，一般用于创建新的资源或进行修改操作。",
+#                     "put": "用于更新服务器上的资源，一般用于修改已存在的资源的全部内容。",
+#                     "delete": "用于删除服务器上的资源。"
+#                 }
+# for method in requestMethods:
+#     print(method)
+
+# requestMethods = {
+#                     "get": "用于获取服务器上的资源，通过在URL中传递参数来发送请求。",
+#                     "post": "用于向服务器提交数据，一般用于创建新的资源或进行修改操作。",
+#                     "put": "用于更新服务器上的资源，一般用于修改已存在的资源的全部内容。",
+#                     "delete": "用于删除服务器上的资源。"
+#                 }
+# for method in requestMethods.values():
+#     print(method)
+
+# requestMethods = {
+#                     "get": "用于获取服务器上的资源，通过在URL中传递参数来发送请求。",
+#                     "post": "用于向服务器提交数据，一般用于创建新的资源或进行修改操作。",
+#                     "put": "用于更新服务器上的资源，一般用于修改已存在的资源的全部内容。",
+#                     "delete": "用于删除服务器上的资源。"
+#                 }
+# for item in requestMethods.items():
+#     print(f"请求方式【 {item[0]} 】的作用为：【 {item[1]} 】")
+
+# requestMethods = {
+#                     "get": "用于获取服务器上的资源，通过在URL中传递参数来发送请求。",
+#                     "post": "用于向服务器提交数据，一般用于创建新的资源或进行修改操作。",
+#                     "put": "用于更新服务器上的资源，一般用于修改已存在的资源的全部内容。",
+#                     "delete": "用于删除服务器上的资源。"
+#                 }
+# for key, value in requestMethods.items():
+#     print(f"请求方式【 {key} 】的作用为：【 {value} 】")
+
+# s = "abcdefg"
+
+# # print(s[-1 - 1])
+# for i in range(len(s)):
+#     print(-i)
+
+# nums = list(range(1, 10))
+# print(nums)
+
+# def printMsg(n,msg):
+#     for i in range(n):
+#         print(i)
+# printMsg(5)10
+
+# 正确使用位置参数
+# printMsg(5, "Hogworts")
+# 错误使用位置参数10
+
+# 10进制整数转换2进制，并字符串打印出结果
+# result = ""
+# number = int(input("输入数字："))
+# while number != 0:
+#     temp = number % 2
+#     number = number // 2
+#     result = str(temp) + result
+# print(result)
+
+
+# 阶乘
+def jc(number):
+    if number == 1 or number == 0:
+        return 1
+    return number * jc(number-1)
+
+
+# 斐波那契数列
+def fb(number):
+    if number < 1:
+        return 0
+    elif number == 1 or number == 2:
+        return 1
+    return fb(number-1) + fb(number-2)
+    
+if __name__ == "__main__":
+    number = int(input("输入数字："))
+    print("结果：", jc(number))
+
+    print("结果：", fb(number))

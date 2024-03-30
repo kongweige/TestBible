@@ -161,3 +161,300 @@ print(s[::-1])
 ```
 * 字符串格式化
 
+* 元祖
+```python
+# 元素之间必须加逗号，一个元素也要加
+t0 = (1,)
+t1 = (1,3,2)
+print(t1)
+print(type(t1))
+```
+* 列表
+```python
+l = [1,2,3,4,5]
+print(l)
+print(l[0])
+
+# 获取列表元素个数
+length = len(l)
+
+# 查找3出现的次数
+print(l.count(3))
+
+# 返回3所在的位置下标
+print(l.index(3))
+
+# 向列表最后追加元素
+l.append(10)
+
+# 在指定下标位置插入
+l.insert(0, "A")
+print(l)
+l.insert(3, "B")
+print(l)
+
+# 删除指定下标位置元素
+del l[0]
+print(l)
+
+# 在列表中删除第一个指定的数据（不是下标）
+l.remove(3)
+print(l)
+
+
+# 从列表中取出并删除指定下标位置的元素，默认取出并删除最后一个元素
+print(l.pop())
+print(l)
+print(l.pop(3))
+print(l)
+
+# 清空列表
+l.clear()
+print(l)
+
+```
+* 元组和列表的区别
+  * 相同点：
+    * 元组和列表在python中，都是有序的，可迭代的数据结构
+    * 元组和列表都是异构的，都可以存储不同数据类型的元素
+  * 不同点：
+    * 元组是不可变的，不可以增删改
+    * 列表是可变的，可以对列表中的元素进行增删改
+    * 相同元素个数的情况下，元组的内存空间更小
+* 字典
+```python
+# 定义字典
+d1 = {}
+d2 = {"name": "Alice", "age": 25, "gender": "female"}
+
+# 添加和修改
+stu = {"name":"Tom", "age": 23, "gender":"male"}
+print(stu)
+# 添加新元素
+stu["address"] = "BeiJing"
+print(stu)
+# 修改数据
+stu["name"] = "Jack"
+stu["address"] = "ShangHai"
+print(stu)
+
+# 删除元素
+stu = {'name': 'Tom', 'age': 23, 'gender': 'male', 'address': 'BeiJing'}
+print(stu)
+# 删除元素
+del stu['age']
+print(stu)
+del stu['address']
+print(stu)
+```
+* 集合
+```python
+# 不能使用花括号 {} 来定义一个空集合
+s1 = set()
+s2 = {}
+print(type(s1))
+print(type(s2))
+
+# 使用花括号 {}，在内部添加元素，用逗号 , 分隔
+my_set = {1, 2, 3, 4, 5}
+
+# 使用内置函数 set() 创建集合
+my_set = set([1, 2, 3, 4, 5])
+
+# 集合元素具有唯一性
+s = {1,1,1,2,3,4,5,6,6,6,6,6,6,6}
+print(s)
+
+
+s = {1, 2, 3}
+s.add(4)
+s.remove(4)
+
+# 是否为子集
+print(s.issubset({1, 2, 3}))
+print(s.issubset({1, 2, 3, 4}))
+print(s.issubset({3, 4, 5}))
+
+# 判断是否为真子集
+print(s < {1, 2, 3})
+print(s < {1, 2, 3, 4})
+print(s < {3, 4, 5})
+```
+* 深浅拷贝
+  * 浅拷贝只是创建了一个引用，不同的地址指向同一块内存空间，对数据改变会影响原数据
+  * 深拷贝，重新开辟了一块内存空间，与原数据互不影响
+
+* 匹配语句
+
+与C++中的switch区别是case中自带break，如果case 101:匹配后不会继续匹配后面的case
+```python
+httpCode = int(input("请输入一个HTTP状态码："))
+
+match httpCode:
+    case 101:
+        print("临时响应")
+    case 200:
+        print("请求成功")
+    case 301:
+        print("重定向")
+    case 404:
+        print("页面找不到")
+    case 500:
+        print("服务器内部错误")
+    case _: 
+        # 处理所有其他情况的匹配（相当于默认情况）
+        print("无效的状态码")
+
+##################匹配多个值#######################
+httpCode = int(input("请输入一个HTTP状态码："))
+
+match httpCode:
+    case 100 | 101:
+        print("临时响应")
+    case 200 | 201 | 203 | 204 | 205:
+        print("请求成功")
+    case 301 | 304 | 307:
+        print("重定向")
+    case 401 | 403| 404 | 405:
+        print("页面找不到")
+    case 500 | 502 | 503:
+        print("服务器内部错误")
+    case _:
+        print("无效的状态码")
+
+##################变量匹配#############################
+# point is an (x, y) tuple
+x = int(input("x:"))
+y = int(input("y:"))
+point = (x, y)
+match point:
+    case (0, 0):
+        print("坐标在原点上")
+    case (0, y):
+        print(f"坐标在Y轴上")
+    case (x, 0):
+        print(f"坐标在X轴上")
+    case (x, y):
+        print(f"X={x}, Y={y}")
+    case _:
+        raise ValueError("没有这个坐标点")
+```
+
+* while循环
+```python
+# 循环变量实始化
+n = 1
+# 循环条件
+while n<=100:
+    # 数字对7求模为0，则表示该数字是7的倍数
+    # 将数字转换为字符串类型，使用成员运算符判断字符7是否在字符串中，检查包含关系
+    if n % 7 == 0 or "7" in str(n):
+        # 输出满足条件的数字
+        print(n)
+    # 改变循环变量趋近于结束条件
+    n += 1
+```
+
+* for循环
+```python
+
+# 遍历字符串
+s = "Hello Hogworts!"
+for c in s:
+    print(c)
+
+# 遍历元组
+t = (1,2,3,4,5)
+for n in t:
+    print(n)
+
+# 遍历列表
+requestMethods = ["get", "post", "put","delete", "patch", "header", "options",'trace']
+for method in requestMethods:
+    print(method)
+
+# 遍历字典，默认遍历key
+requestMethods = {
+                    "get": "用于获取服务器上的资源，通过在URL中传递参数来发送请求。",
+                    "post": "用于向服务器提交数据，一般用于创建新的资源或进行修改操作。",
+                    "put": "用于更新服务器上的资源，一般用于修改已存在的资源的全部内容。",
+                    "delete": "用于删除服务器上的资源。"
+                }
+for method in requestMethods:
+    print(method)
+
+# 遍历字典的key和val
+for key, value in requestMethods.items():
+    print(f"请求方式 [ {key} ] 的作用为：[ {value} ]")
+```
+* 推导式
+  * 优点：一行代码中完成复杂的生成操作，避免了使用显式的循环和临时变量的繁琐过程。大大减少代码量，并提高编码效率
+```python
+###########元组推导式##################
+# 简单的元组推导式
+t1 = (x for x in range(1,10))
+# 生成128位ASCII码元组
+t2 = (chr(x) for x in range(128))
+# 生成100以内能被7整除所有数字的元组
+t3 = (x for x in range(100) if x%7==0)
+# 生成99乘法表结果元组
+t4 = (x*y for x in range(1,10) for y in range(1, x+1))
+words = ["apple", "banana", "cherry"]
+upper_words = (word.upper() for word in words)
+
+###########列表推导式##################
+# 简单的元组推导式
+l1 = [x for x in range(1,10)]
+# 生成128位ASCII码元组
+l2 = [chr(x) for x in range(128)]
+# 生成100以内能被7整除所有数字的元组
+l3 = [x for x in range(100) if x%7==0]
+# 生成99乘法表结果元组
+l4 = [x*y for x in range(1,10) for y in range(1, x+1)]
+# 将列表中的字符串转换为大写
+words = ["apple", "banana", "cherry"]
+upper_words = [word.upper() for word in words]
+
+###########字典推导式##################
+names = ['Bob','Tom','alice','Jerry','Wendy','Smith']
+# 将列表中各字符串值为键，各字符串的长度为值，组成键值对
+newdict = {name:len(name) for name in names}
+
+```
+* 函数参数
+```python
+# 指定默认值的形式参数必须放在所有未指定默认值参数的后面，否则会产生语法错误
+def show(a, b=2, c):
+    print(a, b, c)
+
+
+######可变位置参数########
+# 不确定个数数字求和
+def my_sum(*args):
+    print(args)
+    print(*args)
+    print(type(args))
+    s = 0
+    for i in args:
+        s += i
+
+    print(s)
+    print("*" * 10)
+
+my_sum(1,2,3)
+my_sum(1,2,3,4)
+my_sum(1,2,3,4,5)
+my_sum(1,2,3,4,5,6)
+
+#######可变关键字参数##############
+# 定义可变关键字参数
+def print_info(**kwargs):
+    print(kwargs)
+    print(type(kwargs))
+    for k,v in kwargs.items():
+        print(k, v)
+    print("*" * 10)
+
+print_info(Tom=18, Jim=20, Lily=12)
+print_info(name="tom",age=22,gender="male",address="BeiJing")
+```

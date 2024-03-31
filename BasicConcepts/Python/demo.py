@@ -371,23 +371,306 @@
 # print(result)
 
 
-# 阶乘
-def jc(number):
-    if number == 1 or number == 0:
-        return 1
-    return number * jc(number-1)
+# # 阶乘
+# def jc(number):
+#     if number == 1 or number == 0:
+#         return 1
+#     return number * jc(number-1)
 
 
-# 斐波那契数列
-def fb(number):
-    if number < 1:
-        return 0
-    elif number == 1 or number == 2:
-        return 1
-    return fb(number-1) + fb(number-2)
+# # 斐波那契数列
+# def fb(number):
+#     if number < 1:
+#         return 0
+#     elif number == 1 or number == 2:
+#         return 1
+#     return fb(number-1) + fb(number-2)
     
-if __name__ == "__main__":
-    number = int(input("输入数字："))
-    print("结果：", jc(number))
+# if __name__ == "__main__":
+#     number = int(input("输入数字："))
+#     print("结果：", jc(number))
 
-    print("结果：", fb(number))
+#     print("结果：", fb(number))
+
+
+# def out_func():
+#     out_n = 100
+#     def inner_func():
+#         print(out_n)
+#     out_n = 200
+#     return inner_func
+
+# if __name__ == '__main__':
+#     of1 = out_func()
+#     of2 = out_func()
+
+#     of1()
+#     of2()
+
+
+
+# # 接收装饰器参数的函数
+# # 参数一：以字符串形式接收被装饰函数的参数列表，需要与被装饰函数参数名保持一致，例："a,b,c"
+# # 参数二：以[(),(),()] 形式传入驱动数据。
+# def decorator_args(vars, datas):
+#     def decorator(func):
+#         # 将字符串参数分割备用
+#         v_keys = vars.split(",")
+#         # 定义保存 [{},{},{}] 形式的数据
+#         new_datas = []
+#         # 遍历数据，取出一组元素数据
+#         for item in datas:
+#             # 定义一个新字典，用来保存 变量名与传入数据组成的字典
+#             d_item = {}
+#             # 使用 zip 函数，同时遍历两个元组，变量名做为key, 元素数据做为value
+#             for k, v in zip(v_keys, item):
+#                 # 将 变量名和值对应保存到字典中
+#                 d_item[k] = v
+#             # 将组合好的字典追加到新数据中备用
+#             new_datas.append(d_item)
+#         def inner(*args, **kwargs):
+#             return func(*args, **kwargs)
+#         # 遍历新数据，取出元素字典
+#         for item in new_datas:
+#             # 将字典中的数据解包传给内函数
+#             inner(**item)
+#         return inner
+#     return decorator
+
+# # 数据驱动数据
+# data = [(1,2,3),(4,5,6),(7,8,9)]
+
+# # 装饰器传参
+# @decorator_args("a,b,c", data)
+# def show(a,b,c):
+#     print(a,b,c)
+
+
+
+
+# file = open("D:\c++Code\TestBible\BasicConcepts\Python\python.md","r")
+# try:
+#     print("hello" * 100)
+# except IOError as err:
+#     print("文件不能写入", err)
+# except NameError:
+#     print("标识符没有定义")
+# except ZeroDivisionError:
+#     print("除数不能为0")
+# except IndexError:
+#     print("下标越界了")
+# except Exception:
+#     print("程序运行出错，请检查代码")
+# finally:
+#     print("文件已关闭")
+#     file.close()
+
+
+
+# class Student:
+#     def __init__(self,name, age): # 构造函数
+#         self.name = name
+#         self.age = age
+
+# s1 = Student("Tom", 22)
+# s2 = Student("Jack", 23)
+
+# print(s1.name)
+# print(s1.age)
+
+# print(s1.name)
+# print(s1.age)
+
+
+# class Student:
+#     def __init__(self,name, age):
+#         self.name = name
+#         self.age = age
+#     def __str__(self):
+#         return f"Name: {self.name} -- Age: {self.age}"
+    
+# s1 = Student("Tom", 22)
+# s2 = Student("Jack", 23)
+
+# print(s1)
+# print(s2)
+
+# 定义一个饮水机类
+# class WaterDispenser:
+#     # 剩余水量
+#     surplus_water = 1500
+#     # 出水口
+#     def water_outlet(self, n):
+#         WaterDispenser.surplus_water -= n
+#         print("剩余水量：", WaterDispenser.surplus_water)
+
+# wd1 = WaterDispenser()
+# wd2 = WaterDispenser()
+
+# wd1.water_outlet(100)
+# print(wd1.surplus_water)
+# wd2.water_outlet(200)
+# print(wd2.surplus_water)
+# print(WaterDispenser.surplus_water)
+
+# import datetime
+# class Utils:
+#     now = datetime.datetime.now()
+
+#     @classmethod
+#     def current_date_time(cls):
+#         return cls.now
+
+#     @classmethod
+#     def current_date(cls):
+#         return cls.now.strftime("%Y-%m-%d")
+
+#     @classmethod
+#     def current_time(cls):
+#         return cls.now.strftime("%H-%M-%S")
+
+#     @classmethod
+#     def getYear(cls):
+#         return cls.now.year
+
+#     @classmethod
+#     def getMonth(cls):
+#         return cls.now.month
+
+#     @classmethod
+#     def getDay(cls):
+#         # 调用类方法
+#         print(Utils.current_date_time())
+#         return cls.now.day
+    
+#     def show(self) -> None:
+#         print("show func")
+
+# u1 = Utils()
+# u1.show()
+# print(u1.current_date_time())
+# print("-------------------------")
+# print(Utils.current_date_time())
+# print(Utils.current_date())
+# print(Utils.current_time())
+# print(Utils.getYear())
+# print(Utils.getMonth())
+# print(Utils.getDay())
+
+
+# class A(object):
+#     def __init__(self):
+#         # 公有属性
+#         self.a = 10
+#         # 保护属性
+#         self._b = 20
+#         # 私有属性
+#         self.__c = 30
+
+#     # 公有方法
+#     def show(self):
+#         # 在类中使用公有属性
+#         print(f"A: {self.a}")
+#         # 在类中使用保护属性
+#         print(f"B: {self._b}")
+#         # 在类中使用私有属性
+#         print(f"C: {self.__c}")
+#         # 在类中使用保护权限的方法
+#         self._display()
+#         # 在类中使用私有方法
+#         self.__info()
+
+
+#     # 保护权限的方法
+#     def _display(self):
+#         print(f"B: {self._b}")
+
+#     # 私有权限的方法
+#     def __info(self):
+#         # 在类中使用私有属性
+#         print(self.__c)
+# obj = A()
+# # 在类外使用公有属性
+# print(obj.a)
+# # 在类外无法使用保护仅限的属性（不建议这样使用）
+# print(obj._b)
+# # 在类外使用私有属性，访问失败
+# # print(obj.__c)
+# # 在类外使用公有方法
+# obj.show()
+# # 在类外无法使用保护权限的方法（不建议这样使用）
+# obj._display()
+# # 在类外访问私有方法，访问失败
+# # obj.__info()
+
+# 中医
+# class Father:
+#     def cure(self):
+#         print("使用中医方法进行治疗。。。")
+
+# # 西医
+# class Son(Father):
+#     def cure(self):
+#         print("使用西医方法进行治疗。。。")
+
+# # 兽医
+# class AnimalDoctor:
+#     def cure(self):
+#         print("使用兽医方法进行治疗。。。")
+
+# # 患者
+# class Patient:
+#     def needDoctor(self, doctor):
+#         doctor.cure()
+
+
+# if __name__ == '__main__':
+#     oldDoctor = Father()
+#     littleDoctor = Son()
+#     animalDoctor = AnimalDoctor()
+
+#     patient = Patient()
+
+#     patient.needDoctor(oldDoctor)
+#     patient.needDoctor(littleDoctor)
+#     patient.needDoctor(animalDoctor)
+
+# 中医
+class Father:
+    def cure(self):
+        print("使用中医方法进行治疗。。。")
+
+# 西医
+class Son(Father):
+    def cure(self):
+        print("使用西医方法进行治疗。。。")
+
+# 兽医
+class AnimalDoctor:
+    def cure(self):
+        print("使用兽医方法进行治疗。。。")
+
+# 患者
+class Patient:
+    def needDoctor(self, doctor):
+        # if isinstance(doctor, Father):
+        #     doctor.cure()
+        # else:
+        #     print("此大夫医疗方法不适用病人。。。")
+
+        if issubclass(doctor.__class__, Father):
+            doctor.cure()
+        else:
+            print("此大夫医疗方法不适用病人。。。")
+
+
+if __name__ == '__main__':
+    oldDoctor = Father()
+    littleDoctor = Son()
+    animalDoctor = AnimalDoctor()
+
+    patient = Patient()
+
+    patient.needDoctor(oldDoctor)
+    patient.needDoctor(littleDoctor)
+    patient.needDoctor(animalDoctor)

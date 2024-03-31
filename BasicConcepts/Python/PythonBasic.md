@@ -458,3 +458,62 @@ def print_info(**kwargs):
 print_info(Tom=18, Jim=20, Lily=12)
 print_info(name="tom",age=22,gender="male",address="BeiJing")
 ```
+
+* 闭包&装饰器
+  * **闭包**：由内函数和外函数组成的一个块，外函数返回内函数的函数引用，内函数可以访问外函数内的变量
+    * 保护私有变量：保护了内部的变量，限制外部访问
+    * 延迟执行：可以使用闭包来延迟某个函数的执行，将想要延迟的函数作为内函数
+  * **装饰器**：本质上是一个闭包函数，能够保证原有函数代码结构不变，为函数增加额外功能
+```python
+##################通用装饰器#####################
+# 做为装饰器名的外函数，使用参数接收被装饰函数的引用
+def decorator(func):
+    # 内函数的可变参数用来接收被装饰函数使用的参数
+    def inner(*args, **kwargs):
+        # 装饰器功能代码
+        # 调用被装饰函数，并将接收的参数传递给被装饰函数，保存被装饰函数执行结果
+        result = func(*args, **kwargs)
+        # 返回被装饰函数执行结果
+        return result
+    # 返回内函数引用
+    return inner
+
+##################带参装饰器#####################
+def decorator_args(vars, datas):
+    def decorator(func):
+        def inner(*args, **kwargs):
+            return func(*args, **kwargs)
+        return inner
+    return decorator
+
+data = [(1,2,3),(4,5,6),(7,8,9)]
+# 装饰器传参
+@decorator_args("a,b,c", data)
+def show(a,b,c):
+    print(a,b,c)
+```
+
+* 异常处理
+```python
+file = open("data.txt","r")
+try:
+    # 写入数据时可能会有问题
+    # file.write("写入的数据")
+    # print(a)
+    # print(3 / 0)
+    # print([][10])
+    print("hello" + 100)
+except IOError as err:
+    print("文件不能写入", err)
+except NameError:
+    print("标识符没有定义")
+except ZeroDivisionError:
+    print("除数不能为0")
+except IndexError:
+    print("下标越界了")
+except Exception:
+    print("程序运行出错，请检查代码")
+finally:
+    print("文件已关闭")
+    file.close()
+```

@@ -464,6 +464,7 @@ print_info(name="tom",age=22,gender="male",address="BeiJing")
     * 保护私有变量：保护了内部的变量，限制外部访问
     * 延迟执行：可以使用闭包来延迟某个函数的执行，将想要延迟的函数作为内函数
   * **装饰器**：本质上是一个闭包函数，能够保证原有函数代码结构不变，为函数增加额外功能
+    * 装饰器在程序一开始就会执行
 ```python
 ##################通用装饰器#####################
 # 做为装饰器名的外函数，使用参数接收被装饰函数的引用
@@ -477,6 +478,24 @@ def decorator(func):
         return result
     # 返回内函数引用
     return inner
+#####################################################
+# 定义一个装饰器函数，用于在函数调用前后输出日志
+def log_decorator(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling function: {func.__name__}")
+        result = func(*args, **kwargs)
+        print(f"Function {func.__name__} finished execution")
+        return result
+    return wrapper
+
+# 使用装饰器装饰一个函数
+@log_decorator
+def add(a, b):
+    return a + b
+
+# 调用被装饰的函数
+result = add(3, 5)
+print("Result:", result)
 
 ##################带参装饰器#####################
 def decorator_args(vars, datas):
@@ -491,6 +510,7 @@ data = [(1,2,3),(4,5,6),(7,8,9)]
 @decorator_args("a,b,c", data)
 def show(a,b,c):
     print(a,b,c)
+    show(1,2,3)
 ```
 
 * 异常处理

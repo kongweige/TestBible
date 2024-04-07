@@ -1,3 +1,17 @@
+## 命名规范
+|类型|规则|
+|-------|-------|
+|文件|test_开头 或者 _test 结尾|
+|类|Test 开头|
+|方法/函数|	test_开头|
+> 注意：测试类中不可以添加__init__构造函数	
+## 测试装置
+|类型|规则|
+|-------|-------|
+|setup_module/teardown_module |全局模块级 |
+|setup_class/teardown_class |类级，只在类中前后运行一次 |
+|setup_function/teardown_function |函数级，在类外,每个函数执行前后 |
+|setup_method/teardown_method |方法级，类中的每个方法执行前后 |	
 ## 参数化
 * 将参数提取出来，每个参数就是一个测试用例
 
@@ -177,5 +191,5 @@ def test_search():
 def test_cart(login):
     print("测试购物车")
 ```
-**conftest.py**
+**conftest**
 * 存放公共数据，如果在文件中要使用conftest中的函数需要将方法加上@pytest.fixture()

@@ -216,3 +216,182 @@ $x("//*[@id='ember21']//li[1]")
 |title	|title_is()	|针对于标题|
 |frame	|frame_to_be_available_and_switch_to_it(locator)|针对于 frame|
 |alert	|alert_is_present()	|针对于弹窗|
+## 控件交互
+```python
+import sys
+import time
+
+import pytest
+from selenium import webdriver
+from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver.common.by import By
+
+"""
+1. 进入测试人网站
+2. 点击搜索按钮
+3. 输入搜索内容,同时按着shift键
+:return:
+"""
+class TestKeyboard:
+
+    def setup_class(self):
+        self.driver = webdriver.Chrome()
+        self.driver.implicitly_wait(5)
+        # self.driver.get("https://ceshiren.com/")
+        self.driver.get("https://vip.ceshiren.com/#/ui_study/frame")
+
+    def teardown_class(self):
+        self.driver.quit()
+
+    # 按下键盘事件 shift
+    @pytest.mark.Key
+    def test_shift(self):
+        self.driver.find_element(By.ID,"search-button").click()
+        # 定位目标元素 输入框
+        ele = self.driver.find_element(By.ID,"search-term")
+        # 按下键盘事件 shift
+        ActionChains(self.driver).key_down(Keys.SHIFT,ele).send_keys("appium").perform()
+        time.sleep(2)
+
+    # 回车键盘事件
+    @pytest.mark.Key
+    def test_enter(self):
+        ActionChains(self.driver).key_down(Keys.ENTER).perform()
+        time.sleep(2)
+
+    # 复制粘贴
+    @pytest.mark.Key
+    def test_copy_and_paste(self):
+        # 演练环境
+        cmd_ctrl = Keys.COMMAND if sys.platform == 'darwin' else Keys.CONTROL
+        # self.driver.find_element(By.ID, "search-button").click()
+        ele = self.driver.find_element(By.ID, "search-term")
+        # 打开搜索，选择搜索框，输入selenium，剪切后复制，几个v就代表复制几次
+        ActionChains(self.driver)\
+            .key_down(Keys.SHIFT, ele)\
+            .send_keys("Selenium!")\
+            .send_keys(Keys.ARROW_LEFT)\
+            .key_down(cmd_ctrl)\
+            .send_keys("xvvvvv")\
+            .key_up(cmd_ctrl)\
+            .perform()
+        time.sleep(5)
+
+    # 鼠标双击
+    @pytest.mark.mouse
+    def test_double_click(self):
+        ele = self.driver.find_element(By.ID, "primary_btn")
+        ActionChains(self.driver).double_click(ele).perform()
+        time.sleep(5)
+
+    # 鼠标拖拽
+    @pytest.mark.mouse_drag
+    def test_drag_and_drop(self):
+        self.driver.maximize_window()
+        # 演练环境
+        self.driver.get("https://vip.ceshiren.com/#/ui_study/action_chains")
+        item_left = self.driver.find_element(By.CSS_SELECTOR, '#item1')
+        item_right = self.driver.find_element(By.CSS_SELECTOR, '#item3')
+        ActionChains(self.driver).drag_and_drop(item_left, item_right).perform()
+        time.sleep(5)
+
+    # 鼠标悬浮
+    @pytest.mark.mouse_hover
+    def test_hover(self):
+        # 演练环境
+        self.driver.get("https://vip.ceshiren.com/#/ui_study/action_chains2")
+        time.sleep(2)
+        title = self.driver.find_element(By.CSS_SELECTOR, '.title')
+        ActionChains(self.driver).move_to_element(title).perform()
+        options = self.driver.find_element(By.CSS_SELECTOR,'.options>div:nth-child(1)')
+        ActionChains(self.driver).click(options).perform()
+        time.sleep(5)
+
+    # 鼠标滚动
+    @pytest.mark.mouse_scoll
+    def test_scoll_to_element(self):
+        # 演练环境
+        self.driver.get("https://ceshiren.com/")
+        # 4.2 之后才提供这个方法
+        ele = self.driver.find_element\
+        (By.XPATH, "//*[text()='怎么写高可用集群部署的测试方案？']")
+        ActionChains(self.driver).scroll_to_element(ele).perform()
+        time.sleep(5)
+
+    # 鼠标滚动
+    @pytest.mark.mouse_scoll
+    def test_scroll_to_amount(self):
+        # 演练环境
+        self.driver.get("https://ceshiren.com/")
+        # 4.2 之后才提供这个方法
+        ActionChains(self.driver).scroll_by_amount(0, 10000).perform()
+        time.sleep(5)
+```
+
+## frame与多窗口处理
+* 切换frame
+  * driver.switch_to.frame() # 根据元素id或者index切换切换frame
+  * driver.switch_to.default_content() # 切换到默认frame
+  * driver.switch_to.parent_frame() # 切换到⽗级frame
+```python
+import time
+from selenium.webdriver.common.by import By
+from Base import Base
+
+class TestFrame(Base):
+
+    def test_window(self):
+        self.driver.get("https://www.baidu.com")
+        self.driver.find_element(By.LINK_TEXT,"登录").click()
+        self.driver.find_element(By.LINK_TEXT,"立即注册").click()
+
+        windows = self.driver.window_handles
+        self.driver.switch_to.window(windows[-1])
+        self.driver.find_element(By.ID,"TANGRAM__PSP_4__userName").send_keys("username")
+        self.driver.find_element(By.ID,"TANGRAM__PSP_4__password").send_keys("password")
+        self.driver.switch_to.window(windows[0])
+        time.sleep(5)
+
+    def test_framedeal_1(self):
+        self.driver.get("https://www.runoob.com/try/try.php?filename=jqueryui-api-droppable")
+        self.driver.switch_to.frame("iframeResult")
+        print(self.driver.find_element_by_id("droppable").text)
+        self.driver.switch_to.parent_frame()
+        print(self.driver.find_element_by_id("submitBTN").text)
+```
+## 文件上传
+```python
+import time
+from selenium.webdriver.common.by import By
+from Base import Base
+
+class TestFile(Base):
+
+    def test_file(self):
+        self.driver.get("https://www.baidu.com")
+        self.driver.find_element(By.XPATH,"//*[@id='form']/span[1]/span[1]").click()
+        self.driver.find_element(By.XPATH,"//*[@id='form']/div/div[2]/div[2]/input").send_keys("C:\\Users\\Admin\\Pictures\\常见数据结构.png")
+        time.sleep(5)
+```
+
+## 弹窗处理
+* switch_to.alert()：获取当前页⾯上的警告框
+* text：返回alert/confirm/prompt 中的⽂字信息
+* accept()：接受现有警告框
+* dismiss()：解散现有警告框
+
+## 数据记录
+* [日志](./test_log.py)
+  * 脚本日志级别
+    * debug记录步骤信息
+    * info记录关键信息，比如断言等
+* 保存截图
+```python
+self.driver.save_screenshot("search_res.png")
+```
+## 获取界面源码
+```python
+# 在报错行前面添加保存page_source的操作
+with open("record.html", "w", encoding="u8") as f:
+    f.write(self.driver.page_source)
+```

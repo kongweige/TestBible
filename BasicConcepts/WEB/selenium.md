@@ -148,6 +148,10 @@ $('#form>input:nth-child(2)')
 
 //:nth-of-type(n)
 $('#form>input:nth-of-type(1)')
+
+// 正确用法
+$('.el-form-item__content > .el-input--mini > input:nth-of-type(1)')
+
 ```
 ## xpath定位
 * xpath定位调试方式

@@ -209,6 +209,7 @@ $x("//*[@id='ember21']//li[1]")
 //*[contains(text(),'霍格沃兹')]
 ```
 ## 显示等待高级应用
+**原理:** 设定超时时间，显示等待内部会循环判断内函数的条件是否满足，满足直接返回函数结果，否则根据设置的间隔时间不断轮训，如果在超时就退出循环，返回异常
 ![alt text](../images/image-显示等待.png)
 
 [Selenium 显式等待官网说明](https://www.selenium.dev/selenium/docs/api/py/webdriver_support/selenium.webdriver.support.expected_conditions.html?highlight=expected)

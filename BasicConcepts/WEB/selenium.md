@@ -394,9 +394,102 @@ class TestFile(Base):
 ```python
 self.driver.save_screenshot("search_res.png")
 ```
-## 获取界面源码
+* 异常截图
+    * 通过装饰器将异常和测试代码解耦合
+```python
+# 问题：异常代码不因该和测试代码耦合在一起
+# 解决方案：使用装饰器
+
+def ui_exception_record(func):
+    def inner(*args,**kwargs):
+        # 第二种获取TestBaidu类属性self.driver
+        # 将self.driver放到setup方法里
+        driver = args[0].driver
+        try:
+            # 当被装饰方法/函数发生异常，捕获并记录数据
+            func(*args,**kwargs)
+        except Exception:
+            print("出现异常")
+            # 第一种获取TestBaidu类属性self.driver
+            # driver = args[0].driver
+
+            # 出现异常的处理
+            # 定义存储路径
+            timestamp = int(time.time())
+            image_path = f"./images/image_{timestamp}.PNG"
+            page_source_path = f"./page_source/page_source_{timestamp}.html"
+
+            # 截图
+            driver.save_screenshot(image_path)
+            # 记录page_source
+            with open(page_source_path, "w", encoding="u8") as f:
+                f.write(driver.page_source)
+
+            # 将截图保存到报告的数据中
+            allure.attach.file(image_path, name="picture",
+                               attachment_type=allure.attachment_type.PNG)
+            # 将pagesource保存到报告中
+            # allure.attach.file(page_source_path,name="pagesource",
+            #                    attachment_type=allure.attachment_type.HTML)
+            allure.attach.file(page_source_path, name="pagesource",
+                               attachment_type=allure.attachment_type.TEXT)
+            raise Exception
+    return inner
+
+
+class TestBaidu:
+    def setup_class(self):
+        self.driver = webdriver.Chrome()  # 初始化 WebDriver 对象
+        self.driver.get("https://www.baidu.com/")
+
+    def teardown_class(self):
+        self.driver.quit()
+
+    @ui_exception_record
+    def test_baidu(self):
+        self.driver.find_element(By.ID,"su1")
+```
+
+* 获取界面源码（记录page_source）
 ```python
 # 在报错行前面添加保存page_source的操作
 with open("record.html", "w", encoding="u8") as f:
     f.write(self.driver.page_source)
 ```
+
+## 浏览器复用
+* 配置步骤
+    * 需要退出当前所有的谷歌浏览器
+    * 输入启动命令，通过命令启动谷歌浏览器
+        * 找到chrome的启动路径：chrome --remote-debugging-port=9222
+        * 配置环境变量
+    * 验证是否启动成功
+
+## Cookie
+Cookie 是一些认证数据信息,存储在电脑的浏览器上
+
+[cookie复用](./test_chrome_cookie.py)
+
+## pageObject设计模式
+
+* 传统UI自动化问题：
+    * 无法适应频繁的UI变化（元素改动，需要重新定位）
+    * 无法清晰表达业务用例场景
+    * 大量的样板代码 
+* POM模式的优势
+    * 降低UI变化导致的测试用例频繁更改的问题
+    * 让用例清晰明朗，与具体实现无关
+* POM建模原则
+    * 字段意义
+        * 不要暴露页面内部的元素给外部
+        * 不需要建模 UI 内的所有元素
+    * 方法意义
+        * 用公共方法代表 UI 所提供的功能
+        * 方法应该返回其他的 PageObject 或者返回用于断言的数据
+        * 同样的行为不同的结果可以建模为不同的方法
+        * 不要在方法内加断言
+## web自动化项目结构
+- page: 页面对象
+- testcases: 测试用例
+- utils: 公共工具
+- log: 日志信息

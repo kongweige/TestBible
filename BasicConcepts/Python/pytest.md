@@ -193,3 +193,10 @@ def test_cart(login):
 ```
 **conftest**
 * 存放公共数据，如果在文件中要使用conftest中的函数需要将方法加上@pytest.fixture()
+
+## 插件开发
+* hook函数
+  * hook是一个函数，在系统消息触发时被系统调用
+  * 自动触发机制
+  * 名称是确定的
+  * 使用时直接编写函数体

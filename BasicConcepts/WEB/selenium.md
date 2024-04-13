@@ -493,3 +493,59 @@ Cookie 是一些认证数据信息,存储在电脑的浏览器上
 - testcases: 测试用例
 - utils: 公共工具
 - log: 日志信息
+
+## 多浏览器测试
+```python
+# conftest.py
+from _pytest.config import Config
+from _pytest.config.argparsing import Parser
+
+web_env = {}
+
+# 实现命令行注册，解决自定参数报错
+def pytest_addoption(parser: Parser):
+    # 注册第一个命令行组
+    hogwarts = parser.getgroup("hogwarts")
+    # 第一个参数为指定命令行的参数形式
+    # pytest .\test_muliti_browser\test_demo.py --browser=chrome
+    # 注册一个命令行参数
+    # efault="chrome" 默认浏览器
+    # dest="browser" 别名
+    hogwarts.addoption("--browser",default="chrome",dest="browser")
+
+def pytest_configure(config:Config):
+    browser = config.getoption("--browser")
+    web_env["browser"] = browser
+```
+## js脚本定位
+```python
+document.documentElement.scrollTop=10000 
+document.querySelector('css表达式').scrollIntoView();
+
+# 直接执行
+execute_script("js脚本")
+# 获取js执行结果
+execute_script("return js脚本")
+```
+
+## 浏览器配置
+```python
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+def test_chrome_pref():
+    options = webdriver.ChromeOptions()
+    # 无头模式
+    options.add_argument('--headless')
+    # 窗体最大化
+    options.add_argument('start-maximized')
+    # 指定浏览器分辨率
+    options.add_argument('window-size=1920x3000')
+    driver = webdriver.Chrome(chrome_options=options)
+    # 打开测试人页面
+    driver.get("https://ceshiren.com/")
+    # 点击登录
+    login_button_text = driver.find_element(By.CSS_SELECTOR, ".login-button").text
+    print(login_button_text)
+    driver.quit()
+```
+## capability
